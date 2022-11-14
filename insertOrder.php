@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet"  href="style/style.css">
+		<title>Замовлення</title>
+	</head>
+	<body>
+		<div class="mainbox">
+			<div class="content">
+
+			<?php
+
+            $mysqli = new mysqli('localhost', 'root', '', 'mydb'); // Створюємо нове підключення з назвою $mysqli за допомогою створення об'єта класу mysqli. Параметри підключення по порядку: сервер, логін, пароль, БД
+            $mysqli->set_charset("utf8"); // Встановлюємо кодування utf8
+
+            if (mysqli_connect_errno()) {
+                printf("Підключення до сервера не вдалось. Код помилки: %s\n", mysqli_connect_error());
+                exit;
+            }
+            
+             $dt = $_POST['data']; $st = $_POST['status']; 
+             
+            
+            $sql = "INSERT INTO `замовлення` ( `Дата`, `Статус`) VALUES ('$dt', '$st')";
+             
+            
+            if($mysqli->query($sql)){
+                echo "Рядок вставлено успішно";
+            }
+            else
+            {
+                echo "Error" . $sql . "<br/>" . $mysqli->error;
+            }
+            // $s="SELECT MAX(Номер) FROM `замовлення`";
+            // if($mysqli->query($s)){
+                
+            // }
+            // else
+            // {
+            //     echo "Error" . $sql . "<br/>" . $mysqli->error;
+            // }
+            // $sq = "INSERT INTO `товари_has_замовлення` ( `ID-товару`,`Номер Замовлення`) VALUES ('$tv','$s')";
+            // if($mysqli->query($sq)){
+            //     echo "Рядок вставлено успішно";
+            // }
+            // else
+            // {
+            //     echo "Error" . $sql . "<br/>" . $mysqli->error;
+            // }
+            /*Закриваємо з'єднання*/
+            $mysqli->close();
+
+            include("showOrder.php")
+            ?>
+            
+			
+			</div>
+		</div>
+	</body>
+</html>
